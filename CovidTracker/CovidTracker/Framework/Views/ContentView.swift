@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// Add a helper function to group cases by week
+// Helper function to group cases by week
 extension CovidData {
     func groupCasesByWeek() -> [String: CovidCases] {
         var weeklyCases: [String: CovidCases] = [:]
@@ -100,20 +100,26 @@ struct ContentView: View {
         """
 
     var body: some View {
-        List(covidData) { data in
-            VStack(alignment: .leading) {
-                Text("Country: \(data.country)")
-                    .font(.headline)
-                Text("Region: \(data.region)")
-                    .font(.subheadline)
+        List {
+            ForEach(covidData) { data in
+                VStack(alignment: .leading) {
+                    Text("Country: \(data.country)")
+                        .font(.headline)
+                    Text("Region: \(data.region)")
+                        .font(.subheadline)
 
-                // Use the grouped data by week
-                ForEach(data.groupCasesByWeek().sorted(by: { $0.key < $1.key }), id: \.key) { week, weeklyCases in
-                    VStack(alignment: .leading) {
-                        Text("Week: \(week)")
-                            .font(.caption)
-                        Text("Total Cases: \(weeklyCases.total)")
-                        Text("New Cases: \(weeklyCases.new)")
+                    // Move the outer loop inside to create a new card for each country
+                    ForEach(data.groupCasesByWeek().sorted(by: { $0.key < $1.key }), id: \.key) { week, weeklyCases in
+                        VStack(alignment: .leading) {
+                            Text("Week: \(week)")
+                                .font(.caption)
+                            Text("Total Cases: \(weeklyCases.total)")
+                            Text("New Cases: \(weeklyCases.new)")
+                        }
+                        .padding(.leading, 20) // Indentation
+                        .background(Color.gray.opacity(0.1)) // Card background
+                        .cornerRadius(10)
+                        .padding(10) // Padding around the card
                     }
                 }
             }
@@ -129,3 +135,10 @@ struct ContentView: View {
         }
     }
 }
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        return ContentView()
+    }
+}
+
