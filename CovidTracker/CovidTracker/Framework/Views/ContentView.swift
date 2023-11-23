@@ -35,8 +35,6 @@ extension CovidData {
     }
 }
 
-
-
 struct ContentView: View {
     @State private var covidData: [CovidData] = [] // Assuming this is your fetched data
 

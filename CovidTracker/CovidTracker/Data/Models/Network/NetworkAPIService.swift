@@ -8,7 +8,9 @@
 import Foundation
 import Alamofire
 
+/// Service for handling network requests related to the CovidTracker app.
 class NetWorkAPIService {
+    // Singleton instance of the network service
     static let shared = NetWorkAPIService()
     
     func getCovidData(url: URL, country: String) async -> CovidData? {

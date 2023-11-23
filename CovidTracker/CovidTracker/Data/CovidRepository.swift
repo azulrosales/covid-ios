@@ -7,6 +7,7 @@
 
 import Foundation
 
+// Structure to hold API endpoint details
 struct Api {
     static let base: String = "https://api.api-ninjas.com/v1/"
     
@@ -15,12 +16,14 @@ struct Api {
     }
 }
 
+// Protocol defining the Covid API methods
 protocol CovidAPIProtocol {
     
     //https://api.api-ninjas.com/v1/covid19?country=
     func getCovidData(country: String) async -> CovidData?
 }
 
+/// Class implementing the Covid API methods
 class CovidRepository: CovidAPIProtocol {
     static let shared = CovidRepository()
     
